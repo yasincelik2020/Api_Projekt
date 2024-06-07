@@ -1,4 +1,4 @@
-package requests;
+package HocadanGelen;
 
 import base_urls.JsonPlaceHolderBaseUrl;
 import io.restassured.response.Response;
@@ -9,7 +9,7 @@ import java.util.Map;
 import static io.restassured.RestAssured.given;
 import static org.testng.Assert.assertEquals;
 
-public class D23_DeleteRequest extends JsonPlaceHolderBaseUrl {
+public class C23_DeleteRequest extends JsonPlaceHolderBaseUrl {
 /*
     Given
       https://jsonplaceholder.typicode.com/todos/198
@@ -22,26 +22,24 @@ public class D23_DeleteRequest extends JsonPlaceHolderBaseUrl {
 */
 
     @Test
-    void deleteRequestTest(){
-        // Set the url
+    void deleteRequestTest() {
+        //Set the url
         spec.pathParams("first","todos","second","198");
 
-        //  Set the expected data
+        //Set the expected data
 
-        // Send the request and get the response
+        //Send the request and get the response
         Response response = given(spec).delete("{first}/{second}");
         response.prettyPrint();
 
-        // Do the assertion
-        Map<String,String> actualData = response.as(Map.class);
+        //Do assertion
+        Map<String, String> actualData = response.as(Map.class);
         System.out.println("actualData = " + actualData);
 
-        assertEquals(response.statusCode(),200);
+        assertEquals(response.statusCode(), 200);
 
         assert actualData.isEmpty();
 
-
-
-
     }
+
 }

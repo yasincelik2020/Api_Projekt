@@ -1,4 +1,4 @@
-package requests;
+package requests.Homeworks;
 
 import base_urls.PetstoreBaseUrl;
 import io.restassured.response.Response;
