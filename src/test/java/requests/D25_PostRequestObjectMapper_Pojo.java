@@ -3,6 +3,7 @@ package requests;
 import base_urls.JsonPlaceHolderBaseUrl;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.gson.Gson;
 import io.restassured.response.Response;
 import org.testng.annotations.Test;
 import pojos.JsonPlaceHolderPojo;
@@ -58,6 +59,10 @@ public class D25_PostRequestObjectMapper_Pojo extends JsonPlaceHolderBaseUrl {
         //readvalue() methodunda ilk parametrede cevrilmek istenen json datanin string hali, 2. parametrede cevrilmek istenen tipi(map,posoclass) yaziyoruz.
         JsonPlaceHolderPojo expectedData = objectMapper.readValue(strJson, JsonPlaceHolderPojo.class); // String text block'u burada map'e ceviriyoruz.
         System.out.println("expectedData = " + expectedData);
+
+        //2.Yöntem
+        Gson gson = new Gson();
+        JsonPlaceHolderPojo expectedData2 = gson.fromJson(strJson, JsonPlaceHolderPojo.class);
 
         //Send the request and get the response
         Response response = given(spec).body(expectedData).post("{first}");

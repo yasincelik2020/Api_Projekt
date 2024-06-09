@@ -6,6 +6,7 @@ import org.testng.annotations.Test;
 
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.*;
+import static org.testng.Assert.assertEquals;
 
 public class D29_GetRequestGroovy extends GoRestBaseUrl {
     @Test
@@ -44,17 +45,22 @@ public class D29_GetRequestGroovy extends GoRestBaseUrl {
                 .then()
                 .statusCode(200)
                 .body("meta.pagination.limit",equalTo(10))
-                .body("meta.pagination.links.current",equalTo("https://gorest.co.in/public/v1/users?page=1")) //        The "current link" should be "https://gorest.co.in/public/v1/users?page=1"
+                .body("meta.pagination.links.current",equalTo("https://gorest.co.in/public/v1/users?page=1")) //The "current link" should be "https://gorest.co.in/public/v1/users?page=1"
                 .body("data",hasSize(10)) //        The number of users should  be 10
                 .body("data.status",hasItem("active")) //        We have at least one "active" status
+                .body("data.name",hasItems("Archan Shah I", "Adwitiya Chattopadhyay", "Kannan Mehrotra Jr." )) //"Archan Shah I", "Adwitiya Chattopadhyay", "Kannan Mehrotra Jr."  are among the users -> Bu data değişken
 
         ;
 
+        int numOfFemales = response.jsonPath().getList("data.findAll{it.gender == 'female'}").size();
+        int numOfMales = response.jsonPath().getList("data.findAll{it.gender == 'male'}").size();
+
+        assert (numOfFemales>numOfMales); //The female users are greater than or equals to male users -> Bu data değişken
+
+        System.out.println("numOfMales = " + numOfMales);
+        System.out.println("numOfFemales = " + numOfFemales);
 
 
-//        "Abhaidev Kaur", "Fr. Deenabandhu Adiga", "Akshita Singh DC" are among the users -> Bu data değişken
-
-//        The female users are less than or equals to male users -> Bu data değişken
 
 
 
