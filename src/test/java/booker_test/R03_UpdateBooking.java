@@ -43,6 +43,8 @@ public class R03_UpdateBooking extends BookerBaseUrl {
     "additionalneeds" : "Breakfast"
 }
  */
+    public static BookingPojo expectedDataUpdate; // Diger class'ta kullanmka icin olusturuyoruz.
+    //Isimler karismasin diye bu sekilde adlandirabiliriz.
 
     @Test
     void putRequestNestedPojoTest(){
@@ -66,6 +68,17 @@ public class R03_UpdateBooking extends BookerBaseUrl {
        BookingPojo expectedData = ObjectMapperUtils.jsonToJava(strJson,BookingPojo.class);
         System.out.println("expectedData = " + expectedData);
 
+        // ilk class'ta olusturulan expectedData üzerinde degisiklik yaparak guncellenecek body olusturulabilir.
+        // Bestpractice --> Objectmapper+ Pojoclass
+
+
+//        expectedData.setFirstname("James");
+//        expectedData.setLastname("Brown");
+//        expectedData.setTotalprice(111);
+//        expectedData.setDepositpaid(true);
+//        expectedData.getBookingdates().setCheckin("2018-01-01");
+//        expectedData.getBookingdates().setCheckout("2019-01-01");
+//        expectedData.setAdditionalneeds("Breakfast");
 
         //Send the request and get the response
         Response response=given(spec)
@@ -89,6 +102,8 @@ public class R03_UpdateBooking extends BookerBaseUrl {
         assertEquals(actualData.getBookingdates().getCheckout(),expectedData.getBookingdates().getCheckout());
 
         assertEquals(actualData.getAdditionalneeds(),expectedData.getAdditionalneeds());
+
+        expectedDataUpdate=expectedData;
 
 
 

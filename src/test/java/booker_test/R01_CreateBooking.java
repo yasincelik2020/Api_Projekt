@@ -45,9 +45,10 @@ public class R01_CreateBooking extends BookerBaseUrl {
                                             }
                                         }
  */
-     public  static Integer bookingId;
+     public  static Integer bookingId; //Bu class variable diger class'larda kullanilabilir. Önce bu class calismali, aksi taktirde bookingId null kalir.
+    public static BookingPojo expectedData;//Bu class variable diger class'larda kullanilabilir. Önce bu class calismali, aksi taktirde expectedData null kalir.
     @Test
-    void postRequestNestedPojoTest(){
+    void createBookingTest(){
         //Set the url
         spec.pathParams("first","booking");
 
@@ -65,7 +66,7 @@ public class R01_CreateBooking extends BookerBaseUrl {
                    "additionalneeds": "Lunch"
                }
                """;
-       BookingPojo expectedData = ObjectMapperUtils.jsonToJava(strJson,BookingPojo.class);
+       expectedData = ObjectMapperUtils.jsonToJava(strJson,BookingPojo.class);
         System.out.println("expectedData = " + expectedData);
 
 
@@ -88,7 +89,7 @@ public class R01_CreateBooking extends BookerBaseUrl {
 
         assertEquals(actualData.getBooking().getAdditionalneeds(),expectedData.getAdditionalneeds());
 
-        bookingId = actualData.getBookingid();
+        bookingId = actualData.getBookingid(); //Bu bookingId'yi  diger siniflarda olusturulan booking'i okuma, silme yapmak icin bir class variable'a atiyoruz.
         System.out.println("bookingId = " + bookingId);
 
 

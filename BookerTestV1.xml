@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="All Test Suite">
+    <test verbose="2" preserve-order="true"
+          name="booker_test">
+        <classes>
+            <class name="booker_test.R01_CreateBooking"></class>
+            <class name="booker_test.R02_GetBooking"></class>
+            <class name="booker_test.R03_UpdateBooking"></class>
+            <class name="booker_test.R04_PartialUpdateBookingMap"></class>
+            <class name="booker_test.R05_DeleteBookingV1"></class>
+            <class name="booker_test.R06_NegativeGetBooking"></class>
+        </classes>
+    </test>
+
+</suite>

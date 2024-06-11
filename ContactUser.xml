@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="All Test Suite">
+    <test verbose="2" preserve-order="true"
+          name="booker_test">
+        <classes>
+            <class name="contactList_user.R01_CreateUser"></class>
+            <class name="contactList_user.R02_GetUser"></class>
+            <class name="contactList_user.R03_UpdateUser"></class>
+            <class name="contactList_user.R04_LogOut"></class>
+            <class name="contactList_user.R05_LogInUser"></class>
+            <class name="contactList_user.R06_DeleteUser"></class>
+
+        </classes>
+    </test>
+
+</suite>
