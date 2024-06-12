@@ -1,24 +1,22 @@
-package contactList_user;
+package contactList_userV1;
 
-import base_urls.ContactListBaseUrl;
+
+import base_urls.ContactListBaseUrlV1;
 import com.github.javafaker.Faker;
 import io.restassured.response.Response;
 import org.testng.annotations.Test;
 import pojos.contactListPojo.User;
-import pojos.contactListPojo.UserPojo;
 import utilities.ObjectMapperUtils;
 
 import java.util.Map;
 
-
-import static contactList_user.R01_CreateUser.expectedData;
 import static io.restassured.RestAssured.given;
 import static org.testng.Assert.assertEquals;
 
 
 
 
-public class R03_UpdateUser extends ContactListBaseUrl {
+public class R03_UpdateUserV1 extends ContactListBaseUrlV1 {
     /*
     Given
         https://thinking-tester-contact-list.herokuapp.com/users/me
@@ -26,10 +24,10 @@ public class R03_UpdateUser extends ContactListBaseUrl {
     When
         User sends patch request
                         '{
-                            "firstName": "Mary",
-                            "lastName": "Star",
+                            "firstName": "Updated",
+                            "lastName": "Username",
                             "email": "test2@fake.com",
-                            "password": "Mary.123"
+                            "password": "myNewPassword"
                         }'
     Then
         Status code should be 200
@@ -53,17 +51,13 @@ public class R03_UpdateUser extends ContactListBaseUrl {
         password=Faker.instance().internet().password();
 
         //Set the expected data
-        String json = """
-                {
-                    "firstName": "Mary",
-                    "lastName": "Star",
-                    "email": "test2@fake.com",
-                    "password": "Mary.123"
-                }
-                """;
-       expectedData= ObjectMapperUtils.jsonToJava(json,UserPojo.class);
-       expectedData.setEmail(Faker.instance().internet().emailAddress());
-        System.out.println("expectedData = " + expectedData);
+        String json = "{\n" +
+                "    \"firstName\": \"Updated\",\n" +
+                "    \"lastName\": \"Username\",\n" +
+                "    \"email\": \""+ Faker.instance().internet().emailAddress() +"\",\n"+
+                "    \"password\": \""+ password +"\""+
+                "}";
+        Map expectedData = ObjectMapperUtils.jsonToJava(json, Map.class);
 
         //Send the request and get the response
         Response response = given(spec).body(expectedData).patch("{first}/{second}");
@@ -73,9 +67,9 @@ public class R03_UpdateUser extends ContactListBaseUrl {
 
         // Do Assertion
         assertEquals(response.statusCode(),200);
-        assertEquals(actualDataUpdate.getFirstName(),expectedData.getFirstName());
-        assertEquals(actualDataUpdate.getLastName(),expectedData.getLastName());
-        assertEquals(actualDataUpdate.getEmail(),expectedData.getEmail());
+        assertEquals(actualDataUpdate.getFirstName(),expectedData.get("firstName"));
+        assertEquals(actualDataUpdate.getLastName(),expectedData.get("lastName"));
+        assertEquals(actualDataUpdate.getEmail(),expectedData.get("email"));
 
 
 

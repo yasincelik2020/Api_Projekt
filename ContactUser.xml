@@ -7,9 +7,8 @@
             <class name="contactList_user.R01_CreateUser"></class>
             <class name="contactList_user.R02_GetUser"></class>
             <class name="contactList_user.R03_UpdateUser"></class>
-            <class name="contactList_user.R04_LogOut"></class>
-            <class name="contactList_user.R05_LogInUser"></class>
             <class name="contactList_user.R06_DeleteUser"></class>
+
 
         </classes>
     </test>

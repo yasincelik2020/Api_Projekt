@@ -1,10 +1,10 @@
-package contactList_user;
+package contactList_userV1;
 
-import base_urls.ContactListBaseUrl;
+
+import base_urls.ContactListBaseUrlV1;
 import com.github.javafaker.Faker;
 import io.restassured.response.Response;
 import org.testng.annotations.Test;
-import pojos.contactListPojo.User;
 import pojos.contactListPojo.UserPojo;
 import pojos.contactListPojo.UserResponsePojo;
 import utilities.ObjectMapperUtils;
@@ -12,7 +12,7 @@ import utilities.ObjectMapperUtils;
 import static io.restassured.RestAssured.given;
 import static org.testng.Assert.assertEquals;
 
-public class R01_CreateUser extends ContactListBaseUrl {
+public class R01_CreateUserV1 extends ContactListBaseUrlV1 {
     /*
     Given
         1) https://thinking-tester-contact-list.herokuapp.com/users
@@ -40,11 +40,8 @@ public class R01_CreateUser extends ContactListBaseUrl {
         "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MDhiMmRiMWFkZDI2OTE3OTFjMDRjODgiLCJpYXQiOjE2MTk3MzM5Mzd9.06wN8dRBLkFiS_m2XdY6h4oLx3nMeupHvv-3C2AEKlY"
         }
      */
-
-    public static User createdUser;
-
-    public static UserPojo  expectedData; // Authentication icin burada olusturulan
-    public static UserResponsePojo actualData;
+    public static String token;
+    public static UserPojo expectedDataUpdate;
 
     @Test
     void createUserTest(){
@@ -60,7 +57,7 @@ public class R01_CreateUser extends ContactListBaseUrl {
                                 "password": "michael.123"
                             }
                 """;
-        expectedData = ObjectMapperUtils.jsonToJava(json,UserPojo.class);
+        UserPojo expectedData = ObjectMapperUtils.jsonToJava(json,UserPojo.class);
         expectedData.setEmail(Faker.instance().internet().emailAddress());
         System.out.println("expectedData = " + expectedData);
 
@@ -69,14 +66,17 @@ public class R01_CreateUser extends ContactListBaseUrl {
         response.prettyPrint();
 
         //Do assertion
-        actualData = response.as(UserResponsePojo.class);
+        UserResponsePojo actualData = response.as(UserResponsePojo.class);
 
         assertEquals(response.statusCode(),201);
         assertEquals(actualData.getUser().getFirstName(),expectedData.getFirstName());
         assertEquals(actualData.getUser().getLastName(),expectedData.getLastName());
         assertEquals(actualData.getUser().getEmail(),expectedData.getEmail());
 
+        token=actualData.getToken();
+        expectedDataUpdate=expectedData;
 
-        createdUser = actualData.getUser();// --> Bir sonraki class'ta expected data olarak kullanmak icin assign ediyoruz
+
+
     }
 }

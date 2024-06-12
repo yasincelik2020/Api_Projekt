@@ -1,16 +1,17 @@
-package contactList_user;
+package contactList_userV1;
 
-import base_urls.ContactListBaseUrl;
+
+import base_urls.ContactListBaseUrlV1;
 import io.restassured.response.Response;
 import org.testng.annotations.Test;
 import pojos.contactListPojo.User;
 
-import static contactList_user.R01_CreateUser.createdUser;
 
+import static contactList_userV1.R01_CreateUserV1.expectedDataUpdate;
 import static io.restassured.RestAssured.given;
 import static org.testng.Assert.assertEquals;
 
-public class R02_GetUser extends ContactListBaseUrl {
+public class R02_GetUserV1 extends ContactListBaseUrlV1 {
     /*
     Given
         'https://thinking-tester-contact-list.herokuapp.com/users/me'
@@ -35,19 +36,17 @@ public class R02_GetUser extends ContactListBaseUrl {
         //Set the url
         spec.pathParams("first","users","second","me");
 
-        //Set the expected data --> Bir onceki class'ta olusturulan User objesi kullanilabilir.
-        User expectedData = createdUser;
+        //Set the expected data --> Bir onceki class'ta olusturulan
 
 
-        //Send the request and get the response
-        Response response = given(spec).get("{first}/{second}");
-        response.prettyPrint();
+        //send the request and get the response
+    Response response = given(spec).get("{first}/{second}");
+    response.prettyPrint();
 
         User actualData = response.as(User.class);
         assertEquals(response.statusCode(),200);
-        System.out.println("actualData = " + actualData);
-//        assertEquals(actualData.getFirstName(),expectedData.getFirstName());
-//        assertEquals(actualData.getLastName(),expectedData.getLastName());
+        assertEquals(actualData.getFirstName(),expectedDataUpdate.getFirstName());
+        assertEquals(actualData.getLastName(),expectedDataUpdate.getLastName());
 
 
     }

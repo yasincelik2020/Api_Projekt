@@ -1,6 +1,7 @@
-package contactList_user;
+package contactList_userV1;
 
 import base_urls.ContactListBaseUrl;
+import base_urls.ContactListBaseUrlV1;
 import io.restassured.response.Response;
 import org.testng.annotations.Test;
 import pojos.contactListPojo.UserResponsePojo;
@@ -9,11 +10,12 @@ import utilities.ObjectMapperUtils;
 import java.util.Map;
 
 import static contactList_userV1.R01_CreateUserV1.token;
-import static contactList_user.R03_UpdateUser.*;
+import static contactList_userV1.R03_UpdateUserV1.actualDataUpdate;
+import static contactList_userV1.R03_UpdateUserV1.password;
 import static io.restassured.RestAssured.given;
 import static org.testng.Assert.assertEquals;
 
-public class R05_LogInUser extends ContactListBaseUrl {
+public class R05_LogInUserV1 extends ContactListBaseUrlV1 {
     /*
     curl --location 'https://thinking-tester-contact-list.herokuapp.com/users/login' \
 --data-raw '{
@@ -46,7 +48,7 @@ public class R05_LogInUser extends ContactListBaseUrl {
         assertEquals(actualData.getUser().getLastName(),actualDataUpdate.getLastName());
         assertEquals(actualData.getUser().getEmail(),actualDataUpdate.getEmail());
 
-        token =actualData.getToken();
+        token=actualData.getToken();
 
     }
 }
